@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 
+import sys
 import datetime
 from dateutil.parser import parse
 import decimal
@@ -14,7 +15,11 @@ try:
 except ImportError:
     from django.db.models.fields.related_descriptors import\
         ReverseOneToOneDescriptor
-from django.utils import datetime_safe
+
+if sys.version_info[0] >= 3 and sys.version_info[1] > 3:
+    datetime_safe = datetime
+else:
+    from tastypie.utils import datetime_safe
 
 import six
 
